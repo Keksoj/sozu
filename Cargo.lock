@@ -1788,6 +1788,7 @@ dependencies = [
  "poule",
  "quickcheck",
  "rand 0.8.4",
+ "regex",
  "rustls",
  "rusty_ulid",
  "slab",
