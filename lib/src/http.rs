@@ -1000,7 +1000,7 @@ impl Listener {
     Some(self.token)
   }
 
-  pub fn add_http_front(&mut self, mut http_front: HttpFront) -> Result<(), String> {
+  pub fn add_http_front(&mut self, http_front: HttpFront) -> Result<(), String> {
     //FIXME: proper error reporting
     if self.fronts.add_http_front(http_front) {
       Ok(())
@@ -1009,7 +1009,7 @@ impl Listener {
     }
   }
 
-  pub fn remove_http_front(&mut self, mut http_front: HttpFront) -> Result<(), String> {
+  pub fn remove_http_front(&mut self, http_front: HttpFront) -> Result<(), String> {
     debug!("removing http_front {:?}", http_front);
     //FIXME: proper error reporting
     if self.fronts.remove_http_front(http_front) {
@@ -1385,7 +1385,7 @@ mod tests {
     };
 
     let (mut command, channel) = Channel::generate(1000, 10000).expect("should create a channel");
-    let jg = thread::spawn(move || {
+    let _jg = thread::spawn(move || {
       setup_test_logger!();
       start(config, channel, 10, 16384);
     });
@@ -1442,7 +1442,7 @@ mod tests {
 
     let (mut command, channel) = Channel::generate(1000, 10000).expect("should create a channel");
 
-    let jg = thread::spawn(move|| {
+    let _jg = thread::spawn(move|| {
       start(config, channel, 10, 16384);
     });
 
@@ -1518,7 +1518,7 @@ mod tests {
     };
 
     let (mut command, channel) = Channel::generate(1000, 10000).expect("should create a channel");
-    let jg = thread::spawn(move || {
+    let _jg = thread::spawn(move || {
       setup_test_logger!();
       start(config, channel, 10, 16384);
     });
@@ -1536,7 +1536,7 @@ mod tests {
 
     let mut client = TcpStream::connect(("127.0.0.1", 1041)).expect("could not parse address");
     // 5 seconds of timeout
-    client.set_read_timeout(Some(Duration::new(5,0)));
+    client.set_read_timeout(Some(Duration::new(5,0))).unwrap();
 
     let w = client.write(&b"GET /redirected?true HTTP/1.1\r\nHost: localhost\r\nConnection: Close\r\n\r\n"[..]);
     println!("http client write: {:?}", w);
