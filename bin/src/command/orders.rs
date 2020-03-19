@@ -17,6 +17,7 @@ use sozu_command::command::{
     CommandRequest, CommandRequestData, CommandResponse, CommandResponseData, CommandStatus,
     RunState, WorkerInfo,
 };
+use sozu_command::proxy::Route;
 use sozu_command::logging;
 use sozu_command::proxy::{
     AggregatedMetricsData, HttpFront, MetricsData, ProxyRequestData, ProxyResponseData,
@@ -1061,16 +1062,24 @@ impl CommandServer {
                         return;
                     }
                     ProxyRequestData::RemoveHttpFront(HttpFront {
-                        ref app_id,
+                        ref route,
                         ref address,
                         ..
                     })
                     | ProxyRequestData::RemoveHttpsFront(HttpFront {
-                        ref app_id,
+                        ref route,
                         ref address,
                         ..
-                    })
-                    | ProxyRequestData::RemoveTcpFront(TcpFront {
+                    }) => {
+                        let msg = match route {
+                            Route::AppId(app_id) => format!("No such frontend at {} for the application {}", address, app_id),
+                            Route::Deny => format!("No such frontend at {}", address),
+                        };
+                        error!("{}", msg);
+                        self.answer_error(client_id, request_id, msg, None).await;
+                        return;
+                    }
+                    ProxyRequestData::RemoveTcpFront(TcpFront {
                         ref app_id,
                         ref address,
                     }) => {
