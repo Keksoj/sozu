@@ -184,15 +184,6 @@ impl Session {
     }
   }
 
-  /*
-  fn request_id(&self) -> Option<&Ulid> {
-    match self.protocol {
-      Some(State::Pipe(ref pipe)) => Some(&pipe.request_id),
-      _ => None,
-    }
-  }
-  */
-
   fn log_context(&self) -> String {
     format!("{} {} {}\t",
       self.request_id,
@@ -288,18 +279,6 @@ impl Session {
       _ => unreachable!(),
     }
   }
-
-  /*
-  fn back_socket(&self)  -> Option<&TcpStream> {
-    match self.protocol {
-      Some(State::Pipe(ref pipe)) => pipe.back_socket(),
-      Some(State::SendProxyProtocol(ref pp)) => pp.back_socket(),
-      Some(State::RelayProxyProtocol(ref pp)) => pp.back_socket(),
-      Some(State::ExpectProxyProtocol(_)) => None,
-      _ => unreachable!(),
-    }
-  }
-  */
 
   fn back_socket_mut(&mut self)  -> Option<&mut TcpStream> {
     match self.protocol {
