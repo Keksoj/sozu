@@ -306,7 +306,6 @@ dependencies = [
  "libc",
  "num-integer",
  "num-traits",
- "time 0.1.43",
  "winapi 0.3.9",
 ]
 
@@ -1720,7 +1719,6 @@ version = "0.12.0"
 dependencies = [
  "async-dup",
  "async-io",
- "chrono",
  "clap",
  "futures 0.3.15",
  "futures-lite",
@@ -1747,7 +1745,7 @@ dependencies = [
  "structopt-derive",
  "tempfile",
  "termion",
- "time 0.2.27",
+ "time",
 ]
 
 [[package]]
@@ -1785,7 +1783,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "sha2",
- "time 0.2.27",
+ "time",
  "toml",
  "trailer",
 ]
@@ -1818,7 +1816,7 @@ dependencies = [
  "rusty_ulid",
  "slab",
  "sozu-command-lib",
- "time 0.2.27",
+ "time",
  "tiny_http",
  "ureq",
  "url",
@@ -1995,16 +1993,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d326610f408c7a4eb6f51c37c330e496b08506c9457c9d34287ecc38809fb060"
 dependencies = [
  "unicode-width",
-]
-
-[[package]]
-name = "time"
-version = "0.1.43"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ca8a50ef2360fbd1eeb0ecd46795a87a19024eb4b53c5dc916ca1fd95fe62438"
-dependencies = [
- "libc",
- "winapi 0.3.9",
 ]
 
 [[package]]
